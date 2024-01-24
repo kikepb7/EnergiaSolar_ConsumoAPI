@@ -21,6 +21,7 @@ import androidx.compose.material.BottomNavigation
 import androidx.compose.material.BottomNavigationItem
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.DateRange
+import androidx.compose.material.icons.filled.Lock
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.outlined.KeyboardArrowUp
 import androidx.compose.material.icons.outlined.Menu
@@ -86,19 +87,18 @@ fun ShowResult(
                 .width(16.dp)
         )
         LazyColumn(
-            modifier = Modifier.fillMaxSize(),
+            modifier = Modifier.fillMaxWidth(),
             contentPadding = PaddingValues(16.dp)
         ) {
             items(panels) { panel ->
                 PanelItem(panel)
             }
         }
-
+        HomeFooter(
+            modifier = Modifier
+                .fillMaxWidth()
+        )
     }
-    HomeFooter(
-        modifier = Modifier
-            .fillMaxWidth()
-    )
 }
 
 
@@ -304,7 +304,7 @@ fun HomeFooter(
             onClick = {},
             icon = {
                 Icon(
-                    imageVector = Icons.Filled.DateRange,
+                    imageVector = Icons.Filled.Lock,
                     contentDescription = "Lista de la compra",
                     tint = Color.Black
                 )
