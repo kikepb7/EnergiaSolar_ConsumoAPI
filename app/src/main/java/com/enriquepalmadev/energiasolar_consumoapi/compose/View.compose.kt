@@ -94,7 +94,7 @@ fun ShowResult(
             }
         }
 
-    }/
+    }
     HomeFooter(
         modifier = Modifier
             .fillMaxWidth()
