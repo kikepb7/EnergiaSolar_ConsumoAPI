@@ -24,7 +24,7 @@ class MainActivity : ComponentActivity() {
         lifecycleScope.launch {
             try {
 //                val panels = service.popularMovieList("\$argon2id\$v=19\$m=1024,t=1,p=1\$xMlxQPaChY")
-                val panels = service.panelsList()
+                val panels = service.dtoList()
 
                 setContent {
                     EnergiaSolar_ConsumoAPITheme {
@@ -33,7 +33,7 @@ class MainActivity : ComponentActivity() {
                             modifier = Modifier.fillMaxSize(),
                             color = MaterialTheme.colorScheme.background
                         ) {
-                            ShowResult(panels = panels,"EcoSolar Tech", "https://via.placeholder.com/200")
+                            ShowResult(panels = panels)
                         }
                     }
                 }

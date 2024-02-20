@@ -1,60 +1,55 @@
 package com.enriquepalmadev.energiasolar_consumoapi.compose
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.LazyRow
-import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.layout.wrapContentHeight
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.BottomNavigation
 import androidx.compose.material.BottomNavigationItem
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.DateRange
 import androidx.compose.material.icons.filled.Lock
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.outlined.KeyboardArrowUp
 import androidx.compose.material.icons.outlined.Menu
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Divider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.enriquepalmadev.energiasolar_consumoapi.R
+import com.enriquepalmadev.energiasolar_consumoapi.data.model.DtoResult
 import com.enriquepalmadev.energiasolar_consumoapi.data.model.Panel
-import com.enriquepalmadev.energiasolar_consumoapi.ui.theme.EnergiaSolar_ConsumoAPITheme
-import com.enriquepalmadev.energiasolar_consumoapi.ui.theme.OrangeEdit
 
-@Composable
+/*@Composable
 fun ShowResult(
-    panels: List<Panel>,
+    panels: List<DtoResult>,
     textHeader: String,
-    imgLogo: String) {
+    imgLogo: String
+) {
 
     Column {
         Row(
@@ -64,7 +59,7 @@ fun ShowResult(
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
-            ProfileHeaderOptions(optionClick = {  })
+            ProfileHeaderOptions(optionClick = { })
             Text(text = textHeader)
             ProfileHeaderLogo(imgLogo = imgLogo)
 
@@ -99,6 +94,20 @@ fun ShowResult(
                 .fillMaxWidth()
         )
     }
+}*/
+
+@Composable
+fun ShowResult(panels: List<DtoResult>) {
+    LazyVerticalGrid(
+        columns = GridCells.Fixed(2),
+        contentPadding = PaddingValues(8.dp),
+        verticalArrangement = Arrangement.spacedBy(8.dp),
+        horizontalArrangement = Arrangement.spacedBy(8.dp)
+    ) {
+        items(panels) { panel ->
+            PanelItem(panel)
+        }
+    }
 }
 
 
@@ -129,13 +138,13 @@ private fun ProfileHeaderLogo(
             .size(48.dp)
             .clip(CircleShape)
     ) {
-       Image(
-           painter = painterResource(id = R.drawable.logo),
-           contentDescription = "Logo de la App",
-           modifier = Modifier
-               .fillMaxSize()
-               .clip(CircleShape)
-       )
+        Image(
+            painter = painterResource(id = R.drawable.logo),
+            contentDescription = "Logo de la App",
+            modifier = Modifier
+                .fillMaxSize()
+                .clip(CircleShape)
+        )
     }
 }
 
@@ -157,7 +166,6 @@ private fun PanelCard() {
         )
     }
 }
-
 
 
 //@Composable
@@ -229,112 +237,181 @@ private fun PanelCard() {
 //}
 //
 //
+
+
+/*
+//        Text(text = "Modelo: ${panel.model}", style = MaterialTheme.typography.bodySmall)
+//        AsyncImage(model = "https://firebasestorage.googleapis.com/v0/b/paneles-solares-hibernate.appspot.com/o/EnergiaSolar-Hibernate%2FPlaca_Solar_100_Policristalino_83_49.jpg?alt=media&token=12ecf326-4693-4c2d-b873-52a04bb6bbc1", contentDescription = "Imagen")
+//        Text(text = "Potencia Nominal: ${panel.nominalPower}", style = MaterialTheme.typography.bodySmall)
+//        Text(text = "Precio: ${panel.price}", style = MaterialTheme.typography.bodySmall)
+//        Row(
+//            modifier = Modifier
+//                .fillMaxWidth()
+//                .padding(vertical = 16.dp),
+//            horizontalArrangement = Arrangement.SpaceBetween,
+//        ) {
+//            Button(
+//                onClick = { /* Acción al hacer clic en Agregar */ },
+//                colors = ButtonDefaults.buttonColors(OrangeEdit),
+//                modifier = Modifier
+//                    .height(35.dp)
+//                    .width(120.dp)
+//            ) {
+//                Text(
+//                    "Editar",
+//                    style = MaterialTheme.typography.bodySmall,
+//                    fontSize = 16.sp,
+//                    fontWeight = FontWeight.Bold
+//                )
+//            }
+//
+//            Button(
+//                onClick = { /* Acción al hacer clic en Eliminar */ },
+//                colors = ButtonDefaults.buttonColors(Color.Red),
+//                modifier = Modifier
+//                    .height(35.dp)
+//                    .width(120.dp)
+//            ) {
+//                Text(
+//                    "Eliminar",
+//                    style = MaterialTheme.typography.bodySmall,
+//                    fontSize = 16.sp,
+//                    fontWeight = FontWeight.Bold
+//                )
+//            }
+ */
 @Composable
-fun PanelItem(panel: Panel) {
-    Column(
+fun PanelItem(panel: DtoResult) {
+//    Column(
+//        modifier = Modifier
+//            .fillMaxWidth()
+//            .padding(8.dp)
+//    ) {
+//        LazyVerticalGrid(
+//            columns = GridCells.Fixed(2),
+//            contentPadding = PaddingValues(16.dp),
+//            verticalArrangement = Arrangement.spacedBy(16.dp),
+//            horizontalArrangement = Arrangement.spacedBy(16.dp)
+//        ) {
+//            items(panel.image) { image ->
+//                Card(
+//                    modifier = Modifier
+//                        .fillMaxWidth()
+//                        .background(Color(0xFFEBF7FE))
+//                        .wrapContentHeight(),
+//                    elevation = CardDefaults.cardElevation(4.dp),
+//                    shape = RoundedCornerShape(size = 12.dp)
+//                ) {
+//                    Column(
+//                        Modifier.fillMaxWidth()
+//                    ) {
+//                        Text(
+//                            text = "Modelo: ${panel.model}",
+//                            style = MaterialTheme.typography.bodySmall
+//                        )
+//                        AsyncImage(
+//                            model = "https://firebasestorage.googleapis.com/v0/b/paneles-solares-hibernate.appspot.com/o/EnergiaSolar-Hibernate%2FPlaca_Solar_100_Policristalino_83_49.jpg?alt=media&token=12ecf326-4693-4c2d-b873-52a04bb6bbc1",
+//                            contentDescription = "Imagen"
+//                        )
+//                        Text(
+//                            text = "Potencia Nominal: ${panel.nominalPower}",
+//                            style = MaterialTheme.typography.bodySmall
+//                        )
+//                        Text(
+//                            text = "Precio: ${panel.price}",
+//                            style = MaterialTheme.typography.bodySmall
+//                        )
+//                    }
+//                }
+//            }
+//        }
+//    }
+
+    Card(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(8.dp)
+            .background(Color(0xFFEBF7FE))
+            .wrapContentHeight(),
+        elevation = CardDefaults.cardElevation(4.dp),
+        shape = RoundedCornerShape(size = 12.dp)
     ) {
-        Text(text = "ID: ${panel.id}", style = MaterialTheme.typography.bodySmall)
-        Text(text = "Marca: ${panel.brand}", style = MaterialTheme.typography.bodySmall)
-        Text(text = "Precio: ${panel.price} €", style = MaterialTheme.typography.bodySmall)
-        Text(text = "Potencia: ${panel.nominalPower} W", style = MaterialTheme.typography.bodySmall)
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(vertical = 16.dp),
-            horizontalArrangement = Arrangement.SpaceBetween,
+        Column(
+            modifier = Modifier.padding(16.dp)
         ) {
-            Button(
-                onClick = { /* Acción al hacer clic en Agregar */ },
-                colors = ButtonDefaults.buttonColors(OrangeEdit),
-                modifier = Modifier
-                    .height(35.dp)
-                    .width(120.dp)
-            ) {
-                Text(
-                    "Editar",
-                    style = MaterialTheme.typography.bodySmall,
-                    fontSize = 16.sp,
-                    fontWeight = FontWeight.Bold
-                )
-            }
-
-            Button(
-                onClick = { /* Acción al hacer clic en Eliminar */ },
-                colors = ButtonDefaults.buttonColors(Color.Red),
-                modifier = Modifier
-                    .height(35.dp)
-                    .width(120.dp)
-            ) {
-                Text(
-                    "Eliminar",
-                    style = MaterialTheme.typography.bodySmall,
-                    fontSize = 16.sp,
-                    fontWeight = FontWeight.Bold
-                )
-            }
+            Text(
+                text = "Modelo: ${panel.model}",
+                fontSize = 14.sp
+            )
+            // AsyncImage(model = panel.image, contentDescription = "Imagen")
+            Text(
+                text = "Potencia Nominal: ${panel.nominalPower}",
+                fontSize = 14.sp
+            )
+            Text(
+                text = "Precio: ${panel.price}",
+                fontSize = 14.sp
+            )
         }
         Divider(modifier = Modifier.padding(vertical = 8.dp))
     }
-}
 
-@Composable
-fun HomeFooter(
-    modifier: Modifier = Modifier
-) {
-    BottomNavigation(
-        modifier = Modifier.fillMaxWidth(),
-        backgroundColor = Color.White,
+
+    @Composable
+    fun HomeFooter(
+        modifier: Modifier = Modifier
     ) {
-        BottomNavigationItem(
-            selected = true,
-            onClick = {},
-            icon = {
-                Icon(
-                    imageVector = Icons.Outlined.KeyboardArrowUp,
-                    contentDescription = "Página principal",
-                    tint = Color.Green
-                )
-            },
-        )
-        BottomNavigationItem(
-            selected = false,
-            onClick = {},
-            icon = {
-                Icon(
-                    imageVector = Icons.Filled.Lock,
-                    contentDescription = "Lista de la compra",
-                    tint = Color.Black
-                )
-            },
-        )
-        BottomNavigationItem(
-            selected = false,
-            onClick = {},
-            icon = {
-                Icon(
-                    imageVector = Icons.Filled.Person,
-                    contentDescription = "Perfil de usuario",
-                    tint = Color.Black
-                )
-            }
-        )
+        BottomNavigation(
+            modifier = Modifier.fillMaxWidth(),
+            backgroundColor = Color.White,
+        ) {
+            BottomNavigationItem(
+                selected = true,
+                onClick = {},
+                icon = {
+                    Icon(
+                        imageVector = Icons.Outlined.KeyboardArrowUp,
+                        contentDescription = "Página principal",
+                        tint = Color.Green
+                    )
+                },
+            )
+            BottomNavigationItem(
+                selected = false,
+                onClick = {},
+                icon = {
+                    Icon(
+                        imageVector = Icons.Filled.Lock,
+                        contentDescription = "Lista de la compra",
+                        tint = Color.Black
+                    )
+                },
+            )
+            BottomNavigationItem(
+                selected = false,
+                onClick = {},
+                icon = {
+                    Icon(
+                        imageVector = Icons.Filled.Person,
+                        contentDescription = "Perfil de usuario",
+                        tint = Color.Black
+                    )
+                }
+            )
+        }
     }
 }
 
 
-@Preview(showBackground = true, name = "regularView")
-@Composable
-fun Preview() {
-    val samplePanels = listOf(
-        Panel(1, "Brand1", 500.0f, 100.0f),
-        Panel(2, "Brand2", 600.0f, 120.0f),
-        Panel(3, "Brand3", 700.0f, 150.0f)
-    )
-    val modifier: Modifier
-    EnergiaSolar_ConsumoAPITheme {
-        ShowResult(panels = samplePanels, "EcoSolar Tech","https://via.placeholder.com/200")
-    }
-}
+//@Preview(showBackground = true, name = "regularView")
+//@Composable
+//fun Preview() {
+//    val samplePanels = listOf(
+//        Panel(1, "Brand1", 500.0f, 100.0f),
+//        Panel(2, "Brand2", 600.0f, 120.0f),
+//        Panel(3, "Brand3", 700.0f, 150.0f)
+//    )
+//    val modifier: Modifier
+//    EnergiaSolar_ConsumoAPITheme {
+//        ShowResult(panels = samplePanels, "EcoSolar Tech","https://via.placeholder.com/200")
+//    }
+//}
