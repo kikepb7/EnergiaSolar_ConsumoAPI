@@ -33,7 +33,7 @@ class MainActivity : ComponentActivity() {
                             modifier = Modifier.fillMaxSize(),
                             color = MaterialTheme.colorScheme.background
                         ) {
-                            ShowResult(panels = panels)
+                            ShowResult("SOLAR TECH", R.drawable.logo, panels = panels)
                         }
                     }
                 }

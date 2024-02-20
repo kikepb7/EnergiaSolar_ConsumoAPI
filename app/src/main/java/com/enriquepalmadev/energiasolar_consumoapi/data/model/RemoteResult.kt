@@ -8,10 +8,10 @@ data class RemoteResult(
 )
 
 data class DtoResult(
-    val model: String,
-    val image: String,
-    val nominalPower: Int,
-    val price: Double
+    val model: String? = null,
+    val image: String? = null,
+    val nominalPower: Int? = null,
+    val price: Double? = null
 )
 
 data class Panel(
