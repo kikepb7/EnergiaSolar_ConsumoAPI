@@ -1,5 +1,7 @@
 package com.enriquepalmadev.energiasolar_consumoapi.data.model
 
+import com.google.gson.annotations.SerializedName
+
 data class RemoteResult(
     val page: Int,
     val results: List<DtoResult>,
@@ -12,6 +14,18 @@ data class DtoResult(
     val image: String? = null,
     val nominalPower: Int? = null,
     val price: Double? = null
+)
+
+data class UserResponse(
+    val name: String? = null,
+    val email: String? = null,
+    val password: String? = null,
+)
+
+data class ProjectUser(
+    val name: String? = null,
+    val address: String? = null,
+    val generationCapacity: Int? = null
 )
 
 data class Panel(

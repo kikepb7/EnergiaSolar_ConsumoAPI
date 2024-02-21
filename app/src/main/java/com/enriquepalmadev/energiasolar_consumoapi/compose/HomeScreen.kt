@@ -38,7 +38,14 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.enriquepalmadev.energiasolar_consumoapi.R
+import com.enriquepalmadev.energiasolar_consumoapi.data.RetrofitService
+import com.enriquepalmadev.energiasolar_consumoapi.data.RetrofitServiceFactory
+import com.enriquepalmadev.energiasolar_consumoapi.data.model.User
+import kotlinx.coroutines.launch
+import kotlin.coroutines.coroutineContext
 
 @Composable
 fun HomeScreen(
@@ -120,8 +127,6 @@ private fun HomeScreenHeader(
 @Composable
 private fun Registration(
     modifier: Modifier = Modifier,
-    userEmail: String? = null,
-    password: String? = null
 ) {
     var userEmail by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
