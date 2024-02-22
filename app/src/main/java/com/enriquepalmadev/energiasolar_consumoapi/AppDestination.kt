@@ -10,6 +10,7 @@ import com.enriquepalmadev.energiasolar_consumoapi.compose.HomeScreen
 import com.enriquepalmadev.energiasolar_consumoapi.compose.ProjectsUserScreen
 
 
+/*
 interface AppDestination {
     val icon: ImageVector
     val route: String
@@ -34,4 +35,4 @@ object Profile : AppDestination {
     override val screen: @Composable () -> Unit = { ProfileScreen() }
 }
 
-val appTabRowScreens = listOf(Catalogue, ProjectsUser, Profile)
+val appTabRowScreens = listOf(Catalogue, ProjectsUser, Profile)*/
