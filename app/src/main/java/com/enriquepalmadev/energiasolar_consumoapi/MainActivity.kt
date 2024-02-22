@@ -3,21 +3,21 @@ package com.enriquepalmadev.energiasolar_consumoapi
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Scaffold
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.lifecycleScope
 import com.enriquepalmadev.energiasolar_consumoapi.compose.HomeScreen
-import com.enriquepalmadev.energiasolar_consumoapi.compose.ProjectsUserScreen
-import com.enriquepalmadev.energiasolar_consumoapi.compose.ShowResult
-import com.enriquepalmadev.energiasolar_consumoapi.data.RetrofitServiceFactory
-import com.enriquepalmadev.energiasolar_consumoapi.ui.theme.EnergiaSolar_ConsumoAPITheme
-import kotlinx.coroutines.launch
+import com.enriquepalmadev.energiasolar_consumoapi.ui.AppTabRow
+import com.enriquepalmadev.energiasolar_consumoapi.ui.theme.AppTheme
 
 class MainActivity : ComponentActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
+    /*override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         val service = RetrofitServiceFactory.makeRetrofitService()
@@ -39,7 +39,7 @@ class MainActivity : ComponentActivity() {
                             color = MaterialTheme.colorScheme.background
                         ) {
                             HomeScreen()
-//                            ShowResult("SOLAR TECH", R.drawable.logo, panels = panels)
+//                            CatalogueScreen("SOLAR TECH", R.drawable.logo, panels = panels)
 //                            ProjectsUserScreen(projectsUser)
                         }
                     }
@@ -48,5 +48,32 @@ class MainActivity : ComponentActivity() {
                 println("Error fetching panel list: $e")
             }
         }
+    }*/
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContent {
+            SolarApp()
+        }
     }
 }
+
+@Composable
+fun SolarApp() {
+    AppTheme {
+        var currentScreen: HomeDestination by remember { mutableStateOf(HomeScreen()) }
+        Scaffold(
+            topBar = {
+                AppTabRow(
+                    allScreens = appTabRowsScreens,
+                    onTableSelected = { screen -> currentScreen = screen },
+                    currentScreen = currentScreen
+                )
+            }
+        ) { innerPadding ->
+            Box(Modifier.padding(innerPadding)) {
+                currentScreen.screen()
+            }
+        }
+    }
+}a

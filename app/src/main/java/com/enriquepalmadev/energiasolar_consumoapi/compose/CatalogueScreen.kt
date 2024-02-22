@@ -55,7 +55,7 @@ import com.enriquepalmadev.energiasolar_consumoapi.ui.theme.DarkScreen
 
 
 @Composable
-fun ShowResult(
+fun CatalogueScreen(
     textHeader: String,
     imgLogo: Int,
     panels: List<DtoResult>
