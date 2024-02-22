@@ -1,5 +1,6 @@
 package com.enriquepalmadev.energiasolar_consumoapi.compose
 
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -10,6 +11,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
@@ -31,21 +33,17 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.viewmodel.compose.viewModel
 import com.enriquepalmadev.energiasolar_consumoapi.R
-import com.enriquepalmadev.energiasolar_consumoapi.data.RetrofitService
 import com.enriquepalmadev.energiasolar_consumoapi.data.RetrofitServiceFactory
-import com.enriquepalmadev.energiasolar_consumoapi.data.model.User
-import kotlinx.coroutines.launch
-import kotlin.coroutines.coroutineContext
+import com.enriquepalmadev.energiasolar_consumoapi.data.model.UserResponse
+import retrofit2.Call
+import retrofit2.Response
 
 @Composable
 fun HomeScreen(
@@ -53,7 +51,7 @@ fun HomeScreen(
     val iconPainter: Painter = painterResource(id = R.drawable.homepanels)
     Box(
         modifier = Modifier
-            .fillMaxSize()
+            .fillMaxWidth()
             .background(
                 brush = Brush.radialGradient(
                     colors = listOf(
@@ -68,7 +66,7 @@ fun HomeScreen(
         Column(
             modifier = Modifier
                 .padding(start = 16.dp, end = 16.dp, top = 16.dp, bottom = 16.dp)
-                .fillMaxHeight()
+                .fillMaxWidth()
         ) {
             Row(
                 modifier = Modifier
@@ -94,7 +92,7 @@ fun HomeScreen(
                 contentDescription = "Logo principal",
                 tint = Color.Black
             )
-            Registration()
+            Registration(onLoginSuccess = { })
             Spacer(modifier = Modifier.padding(8.dp))
             HomeScreenFooter(
                 modifier = Modifier
@@ -127,33 +125,56 @@ private fun HomeScreenHeader(
 @Composable
 private fun Registration(
     modifier: Modifier = Modifier,
+    onLoginSuccess: (UserResponse) -> Unit
 ) {
     var userEmail by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
 
     Column(
         modifier = Modifier
-            .padding(start = 16.dp, end = 16.dp, top = 32.dp)
+            .padding(start = 16.dp, end = 16.dp, top = 8.dp)
     ) {
         TextField(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(horizontal = 8.dp, vertical = 12.dp),
+                .padding(horizontal = 8.dp, vertical = 4.dp),
             value = userEmail,
-            onValueChange = { password = it },
+            onValueChange = { userEmail = it },
             label = { Text("Email") },
-            singleLine = true,
+            singleLine = true
         )
         TextField(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(horizontal = 8.dp, vertical = 12.dp),
+                .padding(horizontal = 8.dp, vertical = 8.dp),
             value = password,
             onValueChange = { password = it },
-            label = { Text("Password") }
-            )
+            label = { Text("Password") },
+            singleLine = true
+        )
         ElevatedButton(
-            onClick = { /* TODO */ },
+            onClick = {
+                RetrofitServiceFactory.makeRetrofitService().login(userEmail, password)
+                    .enqueue(object : retrofit2.Callback<UserResponse> {
+                        override fun onResponse(
+                            call: Call<UserResponse>,
+                            response: Response<UserResponse>
+                        ) {
+                            if (response.isSuccessful) {
+                                val userResponse = response.body()
+                                if (userResponse != null) {
+                                    onLoginSuccess(userResponse)
+                                }
+                            } else {
+                                Log.d("Error", "Error en las credenciales")
+                            }
+                        }
+
+                        override fun onFailure(call: Call<UserResponse>, t: Throwable) {
+                            Log.e("Login", "Error de conexión")
+                        }
+                    })
+            },
             modifier = Modifier
                 .fillMaxWidth()
         ) {
@@ -181,7 +202,7 @@ private fun HomeScreenFooter(
         Text(
             text = "Ilumina tu futuro ",
             modifier = Modifier
-                .padding(top = 64.dp),
+                .padding(top =16.dp),
             fontSize = 32.sp,
             fontFamily = FontFamily.Default,
             fontWeight = FontWeight.Bold

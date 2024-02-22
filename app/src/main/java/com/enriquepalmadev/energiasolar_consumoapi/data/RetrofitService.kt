@@ -5,20 +5,25 @@ import com.enriquepalmadev.energiasolar_consumoapi.data.model.Panel
 import com.enriquepalmadev.energiasolar_consumoapi.data.model.ProjectUser
 import com.enriquepalmadev.energiasolar_consumoapi.data.model.User
 import com.enriquepalmadev.energiasolar_consumoapi.data.model.UserResponse
+import retrofit2.Call
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.Body
+import retrofit2.http.Field
+import retrofit2.http.FormUrlEncoded
 import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.Path
 
 interface RetrofitService {
 
-    @POST("login")
-    suspend fun login(
-        @Body user: User
-    ): Response<UserResponse>
+    @FormUrlEncoded
+    @POST("/login")
+    fun login(
+        @Field("email") email: String,
+        @Field("password") password: String
+    ): Call<UserResponse>
 
     @GET("paneles/mostrar")
     suspend fun panelsList(

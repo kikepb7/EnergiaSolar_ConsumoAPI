@@ -40,7 +40,7 @@ class MainActivity : ComponentActivity() {
                         ) {
                             HomeScreen()
 //                            ShowResult("SOLAR TECH", R.drawable.logo, panels = panels)
-                            ProjectsUserScreen(projectsUser)
+//                            ProjectsUserScreen(projectsUser)
                         }
                     }
                 }
