@@ -1,11 +1,10 @@
 package com.enriquepalmadev.energiasolar_consumoapi.data
 
 import com.enriquepalmadev.energiasolar_consumoapi.data.model.DtoResult
+import com.enriquepalmadev.energiasolar_consumoapi.data.model.LoginCredentials
 import com.enriquepalmadev.energiasolar_consumoapi.data.model.Panel
-import com.enriquepalmadev.energiasolar_consumoapi.data.model.ProjectUser
-import com.enriquepalmadev.energiasolar_consumoapi.data.model.User
+import com.enriquepalmadev.energiasolar_consumoapi.data.model.Project
 import com.enriquepalmadev.energiasolar_consumoapi.data.model.UserResponse
-import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.Body
@@ -15,10 +14,16 @@ import retrofit2.http.Path
 
 interface RetrofitService {
 
-    @POST("login")
-    suspend fun login(
-        @Body user: User
-    ): Response<UserResponse>
+    @POST("/login")
+    suspend fun loginUser(@Body credentials: LoginCredentials): UserResponse
+
+    @GET("proyectos/{userId}")
+    suspend fun getProjects(@Path("userId") userId: Long): List<Project>
+
+
+
+
+
 
     @GET("paneles/mostrar")
     suspend fun panelsList(
@@ -29,14 +34,11 @@ interface RetrofitService {
     suspend fun dtoList(
     ): List<DtoResult>
 
-    @GET("proyectos/2")
-    suspend fun projectsUserList(
-    ): List<ProjectUser>
-
-    @GET("usuario/{id}")
+    /*@GET("usuario/{id}")
     suspend fun obtainUser(
         @Path("id") id: Long
-    ): Response<User>
+    ): Response<User>*/
+
 }
 
 object RetrofitServiceFactory {

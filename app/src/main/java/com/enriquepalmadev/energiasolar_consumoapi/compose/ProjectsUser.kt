@@ -28,6 +28,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import com.enriquepalmadev.energiasolar_consumoapi.R
 import com.enriquepalmadev.energiasolar_consumoapi.data.model.ProjectUser
 import com.enriquepalmadev.energiasolar_consumoapi.ui.theme.DarkGreyCard
@@ -35,6 +36,7 @@ import com.enriquepalmadev.energiasolar_consumoapi.ui.theme.DarkScreen
 
 @Composable
 fun ProjectsUserScreen(
+    navController: NavController,
     projectsUser: List<ProjectUser>
 ) {
     MyItemList(projectsUser = projectsUser)

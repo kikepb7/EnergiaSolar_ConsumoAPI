@@ -1,5 +1,6 @@
 package com.enriquepalmadev.energiasolar_consumoapi.compose
 
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -31,24 +32,32 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.viewmodel.compose.viewModel
 import com.enriquepalmadev.energiasolar_consumoapi.R
 import com.enriquepalmadev.energiasolar_consumoapi.data.RetrofitService
 import com.enriquepalmadev.energiasolar_consumoapi.data.RetrofitServiceFactory
-import com.enriquepalmadev.energiasolar_consumoapi.data.model.User
-import kotlinx.coroutines.launch
-import kotlin.coroutines.coroutineContext
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
+import retrofit2.Call
+import retrofit2.HttpException
+import androidx.lifecycle.lifecycleScope
+import retrofit2.Response
+import retrofit2.Retrofit
+import javax.security.auth.callback.Callback
 
+
+
+
+
+/*
 @Composable
 fun HomeScreen(
+    navigateToProjectsScreen: () -> Unit
 ) {
     val iconPainter: Painter = painterResource(id = R.drawable.homepanels)
     Box(
@@ -94,7 +103,7 @@ fun HomeScreen(
                 contentDescription = "Logo principal",
                 tint = Color.Black
             )
-            Registration()
+            Registration(navigateToProjectsScreen = navigateToProjectsScreen)
             Spacer(modifier = Modifier.padding(8.dp))
             HomeScreenFooter(
                 modifier = Modifier
@@ -127,8 +136,10 @@ private fun HomeScreenHeader(
 @Composable
 private fun Registration(
     modifier: Modifier = Modifier,
+    navigateToProjectsScreen: () -> Unit    // Función para navegar a la pantalla de proyectos
 ) {
-    var userEmail by remember { mutableStateOf("") }
+    val service = RetrofitServiceFactory.makeRetrofitService()
+    var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
 
     Column(
@@ -139,8 +150,8 @@ private fun Registration(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(horizontal = 8.dp, vertical = 12.dp),
-            value = userEmail,
-            onValueChange = { password = it },
+            value = email,
+            onValueChange = { email = it },
             label = { Text("Email") },
             singleLine = true,
         )
@@ -153,18 +164,35 @@ private fun Registration(
             label = { Text("Password") }
             )
         ElevatedButton(
-            onClick = { /* TODO */ },
+            onClick = {
+
+            },
             modifier = Modifier
                 .fillMaxWidth()
         ) {
             Text("SIGN IN")
         }
         ElevatedButton(
-            onClick = { /* TODO */ },
+            onClick = { */
+/* TODO *//*
+ },
             modifier = Modifier
                 .fillMaxWidth()
         ) {
             Text("SIGN UP")
+        }
+    }
+}
+
+suspend fun loginUser(user: User): Boolean {
+    return withContext(Dispatchers.IO) {
+        try {
+            val response = RetrofitServiceFactory.makeRetrofitService().loginUser(user)
+            response.isSuccessful && response.body() != null
+        } catch (e: HttpException) {
+            false
+        } catch (e: Throwable) {
+            false
         }
     }
 }
@@ -200,4 +228,4 @@ private fun HomeScreenFooter(
 @Preview(showBackground = true)
 fun HomeScreenPreview() {
     HomeScreen()
-}
+}*/

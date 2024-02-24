@@ -47,6 +47,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import com.enriquepalmadev.energiasolar_consumoapi.R
 import com.enriquepalmadev.energiasolar_consumoapi.data.model.DtoResult
@@ -56,6 +57,7 @@ import com.enriquepalmadev.energiasolar_consumoapi.ui.theme.DarkScreen
 
 @Composable
 fun ShowResult(
+    navController: NavController,
     textHeader: String,
     imgLogo: Int,
     panels: List<DtoResult>
