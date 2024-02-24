@@ -12,9 +12,6 @@ import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Chip
-import androidx.compose.material.ChipDefaults
-import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
@@ -39,11 +36,11 @@ fun ProjectsUserScreen(
     navController: NavController,
     projectsUser: List<ProjectUser>
 ) {
-    MyItemList(projectsUser = projectsUser)
+    MyProjectsList(projectsUser = projectsUser)
 }
 
 @Composable
-fun MyItemList(projectsUser: List<ProjectUser>) {
+fun MyProjectsList(projectsUser: List<ProjectUser>) {
     LazyVerticalGrid(
         columns = GridCells.Fixed(2),
         contentPadding = PaddingValues(8.dp),
@@ -71,28 +68,27 @@ fun PanelItem(projectsUser: ProjectUser) {
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
         ) {
-            ChipProjects(
+            CardProject(
                 painterResource(id = R.drawable.panel),
                 "Instalación: ",
                 projectsUser.name.toString()
             )
-            ChipProjects(
+            CardProject(
                 painterResource(id = R.drawable.power),
                 "Dirección: ",
                 projectsUser.address.toString()
             )
-            ChipProjects(
+            CardProject(
                 painterResource(id = R.drawable.price),
                 "FECHA: ",
                 projectsUser.generationCapacity.toString()
             )
-
         }
     }
 }
-@OptIn(ExperimentalMaterialApi::class)
+
 @Composable
-fun ChipProjects(
+fun CardProject(
     icon: Painter,
     information: String,
     title: String,
@@ -104,9 +100,9 @@ fun ChipProjects(
         else -> Color.White
     }
 
-    Chip(
-        onClick = { /*TODO*/ },
-        colors = ChipDefaults.chipColors(backgroundColor = DarkScreen),
+    Card(
+        modifier = Modifier,
+        colors = CardDefaults.cardColors(DarkScreen),
     ) {
         Row(
             modifier = Modifier
