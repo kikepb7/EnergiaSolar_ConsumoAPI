@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Icon
 import androidx.compose.material.Text
@@ -22,8 +23,12 @@ import androidx.compose.material.icons.outlined.AccountBox
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.graphics.vector.ImageVector
@@ -32,15 +37,30 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
+import coil.compose.rememberAsyncImagePainter
+import coil.compose.rememberImagePainter
 import com.enriquepalmadev.energiasolar_consumoapi.R
 import com.enriquepalmadev.energiasolar_consumoapi.compose.component.ButtonApp
 import com.enriquepalmadev.energiasolar_consumoapi.compose.component.TopBar
+import com.enriquepalmadev.energiasolar_consumoapi.viewmodel.ProjectViewModel
+import com.enriquepalmadev.energiasolar_consumoapi.viewmodel.UserViewModel
 import java.util.Calendar
 
 @Composable
 fun Profile(
-
+    navController: NavController,
+    userId: Long,
+    viewModel: UserViewModel
 ) {
+    val user by viewModel.user.collectAsState()
+
+    LaunchedEffect(userId) {
+        viewModel.loadUser(userId)
+    }
+
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -52,12 +72,14 @@ fun Profile(
             onIconStartClicked = { /*TODO*/ }) {
         }
 
-        UserCard(
-            image = painterResource(id = R.drawable.logo),
-            name = "Enrique",
-            email = "enrique@example.com",
-            icon = Icons.AutoMirrored.Filled.KeyboardArrowRight,
-            onIconClicked = { /*TODO*/ })
+        user?.let {
+            UserCard(
+                image = user!!.image,
+                name = it.name,
+                email = user!!.email,
+                icon = Icons.AutoMirrored.Filled.KeyboardArrowRight,
+                onIconClicked = { /*TODO*/ })
+        }
 
         Spacer(modifier = Modifier.height(8.dp))
 
@@ -77,7 +99,6 @@ fun Profile(
 
         Column {
             ButtonApp(text = "Log out") {
-
             }
 
             Row(
@@ -97,23 +118,26 @@ fun Profile(
 
 @Composable
 fun UserCard(
-    image: Painter,
+    image: String,
     name: String,
     email: String,
     icon: ImageVector,
     onIconClicked: () -> Unit,
     modifier: Modifier = Modifier
 ) {
+    val painter = rememberAsyncImagePainter(model = image)
+
     Row(
         modifier = modifier.padding(16.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
         Image(
-            painter = image,
+            painter = painter,
             contentDescription = "Avatar de usuario",
             modifier = Modifier
                 .size(80.dp)
                 .padding(end = 16.dp)
+                .clip(CircleShape)
         )
 
         Column(
@@ -186,11 +210,4 @@ fun SmallCard(
             )
         }
     }
-}
-
-
-@Composable
-@Preview(showBackground = true)
-fun ProfilePreview() {
-    Profile()
 }

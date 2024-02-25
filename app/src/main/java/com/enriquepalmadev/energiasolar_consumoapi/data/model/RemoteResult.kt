@@ -1,8 +1,6 @@
 package com.enriquepalmadev.energiasolar_consumoapi.data.model
 
-import androidx.navigation.NavHostController
 import com.google.gson.annotations.SerializedName
-
 
 data class LoginCredentials(
     @SerializedName("email") val email: String,
@@ -21,40 +19,31 @@ data class Project(
     val generationCapacity: Int
 )
 
+data class Profile(
+    val id: Long,
+    val name: String,
+    val email: String,
+    val image: String
+)
+
+data class Report(
+    val content: String,
+    val registrationDate: String,
+    val serialReport: String,
+    val user: Long? = null
+)
+
+data class ReportPOST(
+    @SerializedName("serialReport")
+    val serialReport: String,
+    @SerializedName("registrationDate")
+    val registrationDate: String,
+    @SerializedName("content")
+    val content: String,
+    @SerializedName("user")
+    val user: Long? = null
+)
+
 data class ErrorResponse(
     val message: String
 )
-
-
-
-
-
-
-/*data class RemoteResult(
-    val page: Int,
-    val results: List<DtoResult>,
-    val total_pages: Int,
-    val total_results: Int
-)
-
-data class DtoResult(
-    val model: String? = null,
-    val image: String? = null,
-    val nominalPower: Int? = null,
-    val price: Double? = null
-)
-
-data class ProjectUser(
-    val name: NavHostController,
-    val address: String,
-    val generationCapacity: Int
-)
-
-data class Panel(
-    val id: Int,
-    val brand: String,
-    val model: String,
-    val image: String,
-    val price: Float,
-    val nominalPower: Int
-)*/

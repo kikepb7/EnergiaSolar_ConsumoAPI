@@ -1,6 +1,5 @@
 package com.enriquepalmadev.energiasolar_consumoapi.compose
 
-import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -15,14 +14,18 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.ElevatedButton
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -35,29 +38,20 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import com.enriquepalmadev.energiasolar_consumoapi.R
-import com.enriquepalmadev.energiasolar_consumoapi.data.RetrofitService
 import com.enriquepalmadev.energiasolar_consumoapi.data.RetrofitServiceFactory
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
-import retrofit2.Call
-import retrofit2.HttpException
-import androidx.lifecycle.lifecycleScope
-import retrofit2.Response
-import retrofit2.Retrofit
-import javax.security.auth.callback.Callback
+import com.enriquepalmadev.energiasolar_consumoapi.data.model.LoginCredentials
+import com.enriquepalmadev.energiasolar_consumoapi.viewmodel.UserViewModel
+import kotlinx.coroutines.launch
 
 
-
-
-
-/*
 @Composable
 fun HomeScreen(
-    navigateToProjectsScreen: () -> Unit
+    navController: NavController,
+    userViewModel: UserViewModel
 ) {
     val iconPainter: Painter = painterResource(id = R.drawable.homepanels)
     Box(
@@ -103,7 +97,7 @@ fun HomeScreen(
                 contentDescription = "Logo principal",
                 tint = Color.Black
             )
-            Registration(navigateToProjectsScreen = navigateToProjectsScreen)
+            Registration(navController = navController, userViewModel = userViewModel)
             Spacer(modifier = Modifier.padding(8.dp))
             HomeScreenFooter(
                 modifier = Modifier
@@ -115,7 +109,7 @@ fun HomeScreen(
 }
 
 @Composable
-private fun HomeScreenHeader(
+fun HomeScreenHeader(
     modifier: Modifier = Modifier
 ) {
     Box(
@@ -133,14 +127,19 @@ private fun HomeScreenHeader(
     }
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-private fun Registration(
+fun Registration(
+    navController: NavController,
+    userViewModel: UserViewModel,
     modifier: Modifier = Modifier,
-    navigateToProjectsScreen: () -> Unit    // Función para navegar a la pantalla de proyectos
 ) {
-    val service = RetrofitServiceFactory.makeRetrofitService()
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
+    var userId by remember { mutableStateOf<String?>(null) }
+    var error by remember { mutableStateOf<String?>(null) }
+    var showErrorDialog by remember { mutableStateOf(false) }
+    val coroutineScope = rememberCoroutineScope()
 
     Column(
         modifier = Modifier
@@ -162,10 +161,25 @@ private fun Registration(
             value = password,
             onValueChange = { password = it },
             label = { Text("Password") }
-            )
+        )
         ElevatedButton(
             onClick = {
-
+                coroutineScope.launch {
+                    val requestBody = LoginCredentials(email, password)
+                    try {
+                        val response =
+                            RetrofitServiceFactory.makeRetrofitService().loginUser(requestBody)
+                        if (response.id != null) {
+                            userId = response.id
+                            userViewModel.setUserId(userId)
+                            navController.navigate("projectUser/${userId}")
+                        } else {
+                            showErrorDialog = true
+                        }
+                    } catch (e: Exception) {
+                        error = "Error de red: ${e.message}"
+                    }
+                }
             },
             modifier = Modifier
                 .fillMaxWidth()
@@ -173,32 +187,39 @@ private fun Registration(
             Text("SIGN IN")
         }
         ElevatedButton(
-            onClick = { */
-/* TODO *//*
- },
+            onClick = {  /*TODO*/ },
             modifier = Modifier
                 .fillMaxWidth()
         ) {
             Text("SIGN UP")
         }
     }
-}
-
-suspend fun loginUser(user: User): Boolean {
-    return withContext(Dispatchers.IO) {
-        try {
-            val response = RetrofitServiceFactory.makeRetrofitService().loginUser(user)
-            response.isSuccessful && response.body() != null
-        } catch (e: HttpException) {
-            false
-        } catch (e: Throwable) {
-            false
-        }
+    if (showErrorDialog) {
+        AlertDialog(
+            onDismissRequest = {
+                showErrorDialog = false
+            },
+            title = {
+                Text(text = "Error de autenticación")
+            },
+            text = {
+                Text(text = "Las credenciales ingresadas son incorrectas. Por favor, inténtalo de nuevo.")
+            },
+            confirmButton = {
+                TextButton(
+                    onClick = {
+                        showErrorDialog = false
+                    }
+                ) {
+                    Text("OK")
+                }
+            }
+        )
     }
 }
 
 @Composable
-private fun HomeScreenFooter(
+fun HomeScreenFooter(
     modifier: Modifier = Modifier
 ) {
     Column(
@@ -223,9 +244,3 @@ private fun HomeScreenFooter(
         )
     }
 }
-
-@Composable
-@Preview(showBackground = true)
-fun HomeScreenPreview() {
-    HomeScreen()
-}*/
