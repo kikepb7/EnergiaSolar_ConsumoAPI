@@ -1,8 +1,6 @@
 package com.enriquepalmadev.energiasolar_consumoapi.data
 
-import com.enriquepalmadev.energiasolar_consumoapi.data.model.DtoResult
 import com.enriquepalmadev.energiasolar_consumoapi.data.model.LoginCredentials
-import com.enriquepalmadev.energiasolar_consumoapi.data.model.Panel
 import com.enriquepalmadev.energiasolar_consumoapi.data.model.Project
 import com.enriquepalmadev.energiasolar_consumoapi.data.model.UserResponse
 import retrofit2.Retrofit
@@ -20,7 +18,7 @@ interface RetrofitService {
     @GET("proyectos/{userId}")
     suspend fun getProjects(@Path("userId") userId: Long): List<Project>
 
-
+/*
 
 
 
@@ -34,7 +32,7 @@ interface RetrofitService {
     suspend fun dtoList(
     ): List<DtoResult>
 
-    /*@GET("usuario/{id}")
+    *//*@GET("usuario/{id}")
     suspend fun obtainUser(
         @Path("id") id: Long
     ): Response<User>*/

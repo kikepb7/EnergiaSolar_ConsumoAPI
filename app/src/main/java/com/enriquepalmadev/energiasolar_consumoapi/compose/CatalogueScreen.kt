@@ -50,11 +50,10 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import com.enriquepalmadev.energiasolar_consumoapi.R
-import com.enriquepalmadev.energiasolar_consumoapi.data.model.DtoResult
 import com.enriquepalmadev.energiasolar_consumoapi.ui.theme.DarkGreyCard
 import com.enriquepalmadev.energiasolar_consumoapi.ui.theme.DarkScreen
 
-
+/*
 @Composable
 fun ShowResult(
     navController: NavController,
@@ -131,7 +130,7 @@ private fun ProfileHeaderOptions(
     Row(
         modifier = modifier
     ) {
-        IconButton(onClick = { /* TODO */ }) {
+        IconButton(onClick = { *//* TODO *//* }) {
             Icon(
                 imageVector = Icons.Outlined.Menu,
                 contentDescription = "Menu",
@@ -195,7 +194,7 @@ fun MyChipInfo(
     }
 
     Chip(
-        onClick = { /*TODO*/ },
+        onClick = { *//*TODO*//* },
         colors = ChipDefaults.chipColors(backgroundColor = DarkScreen),
     ) {
         Row(
@@ -279,7 +278,7 @@ fun PanelItem(panel: DtoResult) {
         ) {
             BottomNavigationItem(
                 selected = true,
-                onClick = { /*TODO*/ },
+                onClick = { *//*TODO*//* },
                 icon = {
                     Icon(
                         imageVector = Icons.Outlined.KeyboardArrowUp,
@@ -290,7 +289,7 @@ fun PanelItem(panel: DtoResult) {
             )
             BottomNavigationItem(
                 selected = false,
-                onClick = { /*TODO*/ },
+                onClick = { *//*TODO*//* },
                 icon = {
                     Icon(
                         imageVector = Icons.Filled.Lock,
@@ -301,7 +300,7 @@ fun PanelItem(panel: DtoResult) {
             )
             BottomNavigationItem(
                 selected = false,
-                onClick = { /*TODO*/ },
+                onClick = { *//*TODO*//* },
                 icon = {
                     Icon(
                         imageVector = Icons.Filled.Person,
@@ -312,7 +311,7 @@ fun PanelItem(panel: DtoResult) {
             )
         }
     }
-}
+}*/
 
 
 /*

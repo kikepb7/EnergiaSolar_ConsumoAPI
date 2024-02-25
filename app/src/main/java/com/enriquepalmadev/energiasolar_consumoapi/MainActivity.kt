@@ -3,6 +3,7 @@ package com.enriquepalmadev.energiasolar_consumoapi
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.activity.viewModels
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -50,13 +51,17 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.enriquepalmadev.energiasolar_consumoapi.compose.NewScreen
+import com.enriquepalmadev.energiasolar_consumoapi.compose.ProjectsUserScreen
 import com.enriquepalmadev.energiasolar_consumoapi.data.RetrofitServiceFactory
 import com.enriquepalmadev.energiasolar_consumoapi.data.model.LoginCredentials
 import com.enriquepalmadev.energiasolar_consumoapi.ui.theme.EnergiaSolar_ConsumoAPITheme
+import com.enriquepalmadev.energiasolar_consumoapi.viewmodel.ProjectViewModel
 import kotlinx.coroutines.launch
 
 
 class MainActivity : ComponentActivity() {
+    private val viewModel: ProjectViewModel by viewModels()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -71,8 +76,24 @@ class MainActivity : ComponentActivity() {
                     color = MaterialTheme.colorScheme.background
                 ) {
                     NavHost(navController, startDestination = "home") {
-//                        composable("home") { HomeScreen(navController) }
                         composable("home") { HomeScreen(navController = navController) }
+                        composable("projectUser/{userId}") { backStackEntry ->
+                            val userId = backStackEntry.arguments?.getString("userId")?.toLongOrNull()
+                            userId?.let { userId ->
+                                ProjectsUserScreen(
+                                    navController = navController,
+                                    userId = userId,
+                                    viewModel = viewModel
+                                )
+                            } ?: kotlin.run {
+                                Box(
+                                    modifier = Modifier.fillMaxSize(),
+                                    contentAlignment = Alignment.Center
+                                ) {
+                                    Text(text = "No se ha proporcionado un ID de usuario válido.")
+                                }
+                            }
+                        }
                         composable("newScreen") { NewScreen() }
                     }
                 }
@@ -202,7 +223,7 @@ fun Registration(
                             RetrofitServiceFactory.makeRetrofitService().loginUser(requestBody)
                         if (response.id != null) {
                             userId = response.id
-                            navController.navigate("newScreen")
+                            navController.navigate("projectUser/${userId}")
                         } else {
                             showErrorDialog = true
                         }

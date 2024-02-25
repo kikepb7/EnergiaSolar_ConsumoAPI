@@ -4,19 +4,26 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentHeight
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -27,34 +34,41 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.enriquepalmadev.energiasolar_consumoapi.R
-import com.enriquepalmadev.energiasolar_consumoapi.data.model.ProjectUser
+import com.enriquepalmadev.energiasolar_consumoapi.data.model.Project
 import com.enriquepalmadev.energiasolar_consumoapi.ui.theme.DarkGreyCard
 import com.enriquepalmadev.energiasolar_consumoapi.ui.theme.DarkScreen
+import com.enriquepalmadev.energiasolar_consumoapi.viewmodel.ProjectViewModel
 
 @Composable
 fun ProjectsUserScreen(
     navController: NavController,
-    projectsUser: List<ProjectUser>
+    userId: Long,
+    viewModel: ProjectViewModel
 ) {
-    MyProjectsList(projectsUser = projectsUser)
+    val projects by viewModel.projects.collectAsState()
+
+    LaunchedEffect(userId) {
+        viewModel.loadProjects(userId)
+    }
+
+    MyProjectsList(projects)
 }
 
 @Composable
-fun MyProjectsList(projectsUser: List<ProjectUser>) {
-    LazyVerticalGrid(
-        columns = GridCells.Fixed(2),
+fun MyProjectsList(projects: List<Project>) {
+    LazyColumn(
         contentPadding = PaddingValues(8.dp),
-        verticalArrangement = Arrangement.spacedBy(8.dp),
-        horizontalArrangement = Arrangement.spacedBy(8.dp)
+        verticalArrangement = Arrangement.spacedBy(8.dp)
     ) {
-        items(projectsUser) { panel ->
-            PanelItem(panel)
+        items(projects) { project ->
+            ProjectItem(project)
+            Spacer(modifier = Modifier.height(8.dp))
         }
     }
 }
 
 @Composable
-fun PanelItem(projectsUser: ProjectUser) {
+fun ProjectItem(project: Project) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
@@ -71,17 +85,17 @@ fun PanelItem(projectsUser: ProjectUser) {
             CardProject(
                 painterResource(id = R.drawable.panel),
                 "Instalación: ",
-                projectsUser.name.toString()
+                project.name
             )
             CardProject(
                 painterResource(id = R.drawable.power),
                 "Dirección: ",
-                projectsUser.address.toString()
+                project.address
             )
             CardProject(
                 painterResource(id = R.drawable.price),
-                "FECHA: ",
-                projectsUser.generationCapacity.toString()
+                "Potencia total: ",
+                project.generationCapacity.toString() + " W"
             )
         }
     }

@@ -14,15 +14,15 @@ data class UserResponse(
     @SerializedName("error") val error: String?
 )
 
-
-
-
-
 data class Project(
     val id: Long,
+    val name: String,
     val address: String,
-    val generationCapacity: Int,
-    val panels: List<Panel>
+    val generationCapacity: Int
+)
+
+data class ErrorResponse(
+    val message: String
 )
 
 
@@ -30,13 +30,12 @@ data class Project(
 
 
 
-
-//data class RemoteResult(
-//    val page: Int,
-//    val results: List<DtoResult>,
-//    val total_pages: Int,
-//    val total_results: Int
-//)
+/*data class RemoteResult(
+    val page: Int,
+    val results: List<DtoResult>,
+    val total_pages: Int,
+    val total_results: Int
+)
 
 data class DtoResult(
     val model: String? = null,
@@ -58,4 +57,4 @@ data class Panel(
     val image: String,
     val price: Float,
     val nominalPower: Int
-)
+)*/
