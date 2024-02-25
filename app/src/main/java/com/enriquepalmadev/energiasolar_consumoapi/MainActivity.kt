@@ -35,8 +35,6 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val service = RetrofitServiceFactory.makeRetrofitService()
-
         setContent {
             val navController = rememberNavController()
 

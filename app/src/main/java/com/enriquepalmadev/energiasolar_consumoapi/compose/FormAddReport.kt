@@ -99,8 +99,6 @@ fun FormAddReport(
                         if (response.isSuccessful) {
                             onAddReport(content, registrationDate, serialReport)
                             navController.navigate("reportUser/$userId")
-                        } else {
-                            // Handle error
                         }
                     }
                 } catch (e: Exception) {
