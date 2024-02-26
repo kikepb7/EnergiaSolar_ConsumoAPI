@@ -19,7 +19,6 @@ import com.enriquepalmadev.energiasolar_consumoapi.compose.HomeScreen
 import com.enriquepalmadev.energiasolar_consumoapi.compose.Profile
 import com.enriquepalmadev.energiasolar_consumoapi.compose.ProjectsUserScreen
 import com.enriquepalmadev.energiasolar_consumoapi.compose.ReportsUserScreen
-import com.enriquepalmadev.energiasolar_consumoapi.data.RetrofitServiceFactory
 import com.enriquepalmadev.energiasolar_consumoapi.ui.theme.EnergiaSolar_ConsumoAPITheme
 import com.enriquepalmadev.energiasolar_consumoapi.viewmodel.ProjectViewModel
 import com.enriquepalmadev.energiasolar_consumoapi.viewmodel.ReportViewModel

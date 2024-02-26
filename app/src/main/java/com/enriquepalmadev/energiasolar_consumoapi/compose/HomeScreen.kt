@@ -37,6 +37,7 @@ import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -160,7 +161,8 @@ fun Registration(
                 .padding(horizontal = 8.dp, vertical = 12.dp),
             value = password,
             onValueChange = { password = it },
-            label = { Text("Password") }
+            label = { Text("Password") },
+            visualTransformation = PasswordVisualTransformation()
         )
         ElevatedButton(
             onClick = {
