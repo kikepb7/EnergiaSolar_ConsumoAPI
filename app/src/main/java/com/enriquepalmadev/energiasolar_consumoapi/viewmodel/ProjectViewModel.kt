@@ -26,4 +26,16 @@ class ProjectViewModel : ViewModel() {
             }
         }
     }
+
+    fun loadSingleProject(projectId: Long) {
+        viewModelScope.launch {
+            try {
+                val project = retrofitService.getProject(projectId)
+                _projects.value = listOf(project)
+            } catch (e: Exception) {
+                e.printStackTrace()
+                _projects.value = emptyList()
+            }
+        }
+    }
 }

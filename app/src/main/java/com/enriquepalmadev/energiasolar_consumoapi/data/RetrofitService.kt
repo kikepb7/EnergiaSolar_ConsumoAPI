@@ -27,6 +27,9 @@ interface RetrofitService {
     @GET("/reportes/{userId}")
     suspend fun getReports(@Path("userId") userId: Long): List<Report>
 
+    @GET("/proyecto/{projectId}")
+    suspend fun getProject(@Path("projectId") projectId: Long): Project
+
     @POST("/reportes/registrar/{userId}")
     suspend fun createReport(@Path("userId") userId: Long, @Body report: ReportPOST): Response<ReportPOST>
 }

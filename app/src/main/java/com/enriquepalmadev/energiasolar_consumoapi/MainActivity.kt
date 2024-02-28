@@ -17,6 +17,7 @@ import androidx.navigation.compose.rememberNavController
 import com.enriquepalmadev.energiasolar_consumoapi.compose.FormAddReport
 import com.enriquepalmadev.energiasolar_consumoapi.compose.HomeScreen
 import com.enriquepalmadev.energiasolar_consumoapi.compose.Profile
+import com.enriquepalmadev.energiasolar_consumoapi.compose.ProjectDescriptionScreen
 import com.enriquepalmadev.energiasolar_consumoapi.compose.ProjectsUserScreen
 import com.enriquepalmadev.energiasolar_consumoapi.compose.ReportsUserScreen
 import com.enriquepalmadev.energiasolar_consumoapi.ui.theme.EnergiaSolar_ConsumoAPITheme
@@ -29,6 +30,7 @@ class MainActivity : ComponentActivity() {
     private val viewModel: ProjectViewModel by viewModels()
     private val userViewModel: UserViewModel by viewModels()
     private val reportViewModel: ReportViewModel by viewModels()
+    private val projectViewModel: ProjectViewModel by viewModels()
     private var authenticatedUserId: Long? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -104,6 +106,19 @@ class MainActivity : ComponentActivity() {
                                     navController = navController,
                                     userViewModel = userViewModel,
                                     onAddReport = { _, _, _ -> }
+                                )
+                            }
+                        }
+
+                        composable("/proyecto/{projectId}") { showProject ->
+                            val projectId = showProject.arguments?.getString("projectId")
+                                ?.toLongOrNull()
+                            projectId?.let {
+                                ProjectDescriptionScreen(
+                                    navController = navController,
+                                    userViewModel = userViewModel,
+                                    projectId = projectId,
+                                    viewModel = projectViewModel
                                 )
                             }
                         }

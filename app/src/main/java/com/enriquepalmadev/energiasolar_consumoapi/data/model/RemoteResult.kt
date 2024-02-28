@@ -16,7 +16,9 @@ data class Project(
     val id: Long,
     val name: String,
     val address: String,
-    val generationCapacity: Int
+    val generationCapacity: Int,
+    val image: String,
+    val description: String
 )
 
 data class Profile(

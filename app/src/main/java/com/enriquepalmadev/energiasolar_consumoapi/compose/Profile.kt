@@ -1,8 +1,8 @@
 package com.enriquepalmadev.energiasolar_consumoapi.compose
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -30,22 +30,22 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.modifier.modifierLocalConsumer
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
-import androidx.navigation.compose.rememberNavController
+import coil.compose.AsyncImage
 import coil.compose.rememberAsyncImagePainter
-import coil.compose.rememberImagePainter
+import coil.request.ImageRequest
 import com.enriquepalmadev.energiasolar_consumoapi.R
 import com.enriquepalmadev.energiasolar_consumoapi.compose.component.ButtonApp
 import com.enriquepalmadev.energiasolar_consumoapi.compose.component.TopBar
-import com.enriquepalmadev.energiasolar_consumoapi.viewmodel.ProjectViewModel
 import com.enriquepalmadev.energiasolar_consumoapi.viewmodel.UserViewModel
 import java.util.Calendar
 
@@ -98,7 +98,8 @@ fun Profile(
         Spacer(modifier = Modifier.weight(1f))
 
         Column {
-            ButtonApp(text = "Log out") {
+            ButtonApp(
+                text = "Log out") {
             }
 
             Row(
@@ -125,15 +126,18 @@ fun UserCard(
     onIconClicked: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-    val painter = rememberAsyncImagePainter(model = image)
-
     Row(
         modifier = modifier.padding(16.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
-        Image(
-            painter = painter,
-            contentDescription = "Avatar de usuario",
+        AsyncImage(
+            model = ImageRequest.Builder(LocalContext.current)
+                .data(image)
+                .crossfade(true)
+                .build(),
+            placeholder = painterResource(R.drawable.ic_launcher_background),
+            contentDescription = stringResource(R.string.avatar_user),
+            contentScale = ContentScale.Crop,
             modifier = Modifier
                 .size(80.dp)
                 .padding(end = 16.dp)
