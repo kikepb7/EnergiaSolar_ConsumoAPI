@@ -10,6 +10,7 @@ import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.Body
+import retrofit2.http.DELETE
 import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.Path
@@ -26,6 +27,8 @@ interface RetrofitService {
 
     @GET("/reportes/{userId}")
     suspend fun getReports(@Path("userId") userId: Long): List<Report>
+    @DELETE("/reporte/{reportId}")
+    suspend fun removeReport(@Path("reportId") reportId: Long)
 
     @GET("/proyecto/{projectId}")
     suspend fun getProject(@Path("projectId") projectId: Long): Project

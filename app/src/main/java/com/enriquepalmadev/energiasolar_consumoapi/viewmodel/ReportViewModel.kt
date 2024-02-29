@@ -29,4 +29,15 @@ class ReportViewModel : ViewModel() {
             }
         }
     }
+
+    fun removeReport(reportId: Long) {
+        viewModelScope.launch {
+            try {
+                retrofitService.removeReport(reportId)
+            } catch (e: Exception) {
+                e.printStackTrace()
+                _reports.value = emptyList()
+            }
+        }
+    }
 }

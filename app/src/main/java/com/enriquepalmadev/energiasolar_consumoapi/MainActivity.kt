@@ -110,6 +110,18 @@ class MainActivity : ComponentActivity() {
                             }
                         }
 
+                        composable("removeReport/{reportId}") { removeReportBackStackEntry ->
+                            val reportId = removeReportBackStackEntry.arguments?.getString("reportId")
+                                ?.toLongOrNull()
+                            reportId?.let {
+                                FormAddReport(
+                                    navController = navController,
+                                    userViewModel = userViewModel,
+                                    onAddReport = { _, _, _ -> }
+                                )
+                            }
+                        }
+
                         composable("/proyecto/{projectId}") { showProject ->
                             val projectId = showProject.arguments?.getString("projectId")
                                 ?.toLongOrNull()
