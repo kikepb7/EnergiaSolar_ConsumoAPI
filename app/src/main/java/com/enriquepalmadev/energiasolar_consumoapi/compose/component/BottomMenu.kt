@@ -42,7 +42,16 @@ fun BottomMenu(navController: NavController, userViewModel: UserViewModel) {
     ) {
         BottomNavigationItem(
             selected = false,
-            onClick = { /*TODO*/ },
+            onClick = {
+                      coroutineScope.launch {
+                          userId = userViewModel.userId.value
+                          userId?.let {
+                              navController.navigate("paneles/mostrar") {
+                                  launchSingleTop = true
+                              }
+                          }
+                      }
+            },
             icon = { Icon(Icons.Default.Home, contentDescription = "Paneles") },
             label = { Text("Paneles") }
         )

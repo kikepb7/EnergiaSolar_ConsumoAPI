@@ -12,6 +12,14 @@ data class UserResponse(
     @SerializedName("error") val error: String?
 )
 
+data class Panel(
+    val id: Long,
+    val model: String,
+    val efficiency: Float,
+    val image: String,
+    val price: Float
+)
+
 data class Project(
     val id: Long,
     val name: String,

@@ -26,7 +26,7 @@ fun TopBar(
     iconStart: ImageVector? = null,
     iconEnd: ImageVector? = null,
     onIconStartClicked: () -> Unit,
-    onIconEndClicked: () -> Unit
+    onIconEndClicked: () -> Unit,
 ) {
     Row(
         verticalAlignment = Alignment.CenterVertically,

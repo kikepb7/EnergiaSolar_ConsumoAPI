@@ -16,11 +16,13 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.enriquepalmadev.energiasolar_consumoapi.compose.FormAddReport
 import com.enriquepalmadev.energiasolar_consumoapi.compose.HomeScreen
+import com.enriquepalmadev.energiasolar_consumoapi.compose.PanelsScreen
 import com.enriquepalmadev.energiasolar_consumoapi.compose.Profile
 import com.enriquepalmadev.energiasolar_consumoapi.compose.ProjectDescriptionScreen
 import com.enriquepalmadev.energiasolar_consumoapi.compose.ProjectsUserScreen
 import com.enriquepalmadev.energiasolar_consumoapi.compose.ReportsUserScreen
 import com.enriquepalmadev.energiasolar_consumoapi.ui.theme.EnergiaSolar_ConsumoAPITheme
+import com.enriquepalmadev.energiasolar_consumoapi.viewmodel.PanelViewModel
 import com.enriquepalmadev.energiasolar_consumoapi.viewmodel.ProjectViewModel
 import com.enriquepalmadev.energiasolar_consumoapi.viewmodel.ReportViewModel
 import com.enriquepalmadev.energiasolar_consumoapi.viewmodel.UserViewModel
@@ -29,6 +31,7 @@ import com.enriquepalmadev.energiasolar_consumoapi.viewmodel.UserViewModel
 class MainActivity : ComponentActivity() {
     private val viewModel: ProjectViewModel by viewModels()
     private val userViewModel: UserViewModel by viewModels()
+    private val panelViewModel: PanelViewModel by viewModels()
     private val reportViewModel: ReportViewModel by viewModels()
     private val projectViewModel: ProjectViewModel by viewModels()
     private var authenticatedUserId: Long? = null
@@ -73,6 +76,16 @@ class MainActivity : ComponentActivity() {
                             }
                         }
 
+                        composable("paneles/mostrar") { panelsStackEntry ->
+
+                            PanelsScreen(
+                                navController = navController,
+                                userViewModel = userViewModel,
+                                viewModel = panelViewModel
+                            )
+
+                        }
+
                         composable("profile/{userId}") { navBackStackEntry ->
                             val userId =
                                 navBackStackEntry.arguments?.getString("userId")?.toLongOrNull()
@@ -111,8 +124,9 @@ class MainActivity : ComponentActivity() {
                         }
 
                         composable("removeReport/{reportId}") { removeReportBackStackEntry ->
-                            val reportId = removeReportBackStackEntry.arguments?.getString("reportId")
-                                ?.toLongOrNull()
+                            val reportId =
+                                removeReportBackStackEntry.arguments?.getString("reportId")
+                                    ?.toLongOrNull()
                             reportId?.let {
                                 FormAddReport(
                                     navController = navController,

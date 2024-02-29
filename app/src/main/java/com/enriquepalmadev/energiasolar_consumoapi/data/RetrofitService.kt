@@ -1,6 +1,7 @@
 package com.enriquepalmadev.energiasolar_consumoapi.data
 
 import com.enriquepalmadev.energiasolar_consumoapi.data.model.LoginCredentials
+import com.enriquepalmadev.energiasolar_consumoapi.data.model.Panel
 import com.enriquepalmadev.energiasolar_consumoapi.data.model.Profile
 import com.enriquepalmadev.energiasolar_consumoapi.data.model.Project
 import com.enriquepalmadev.energiasolar_consumoapi.data.model.Report
@@ -18,6 +19,9 @@ import retrofit2.http.Path
 interface RetrofitService {
     @POST("/login")
     suspend fun loginUser(@Body credentials: LoginCredentials): UserResponse
+
+    @GET("/paneles/mostrar")
+    suspend fun getPanels(): List<Panel>
 
     @GET("/proyectos/{userId}")
     suspend fun getProjects(@Path("userId") userId: Long): List<Project>
