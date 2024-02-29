@@ -58,7 +58,7 @@ fun ReportsUserScreen(
                 modifier = Modifier.padding(top = 32.dp, bottom = 48.dp)
             ) {
                 Spacer(modifier = Modifier.height(16.dp))
-                MyReportsList(reports)
+                MyReportsList(navController, reports, userId)
             }
         },
         bottomBar = {
@@ -71,20 +71,28 @@ fun ReportsUserScreen(
 }
 
 @Composable
-fun MyReportsList(reports: List<Report>) {
+fun MyReportsList(
+    navController: NavController,
+    reports: List<Report>,
+    userId: Long
+) {
     LazyColumn(
         contentPadding = PaddingValues(8.dp),
         verticalArrangement = Arrangement.spacedBy(8.dp)
     ) {
         items(reports) { report ->
-            ReportItem(report)
+            ReportItem(navController, report, userId)
             Spacer(modifier = Modifier.height(8.dp))
         }
     }
 }
 
 @Composable
-fun ReportItem(report: Report) {
+fun ReportItem(
+    navController: NavController,
+    report: Report,
+    userId: Long
+) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
@@ -97,7 +105,7 @@ fun ReportItem(report: Report) {
         ) {
             Text(text = report.content)
             Spacer(modifier = Modifier.height(8.dp))
-            Text(text = report.registrationDate.toString())
+            Text(text = report.registrationDate)
             Spacer(modifier = Modifier.height(8.dp))
             Text(text = report.serialReport)
         }
