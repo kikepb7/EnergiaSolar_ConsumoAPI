@@ -27,7 +27,6 @@ import com.enriquepalmadev.energiasolar_consumoapi.viewmodel.ProjectViewModel
 import com.enriquepalmadev.energiasolar_consumoapi.viewmodel.ReportViewModel
 import com.enriquepalmadev.energiasolar_consumoapi.viewmodel.UserViewModel
 
-
 class MainActivity : ComponentActivity() {
     private val viewModel: ProjectViewModel by viewModels()
     private val userViewModel: UserViewModel by viewModels()

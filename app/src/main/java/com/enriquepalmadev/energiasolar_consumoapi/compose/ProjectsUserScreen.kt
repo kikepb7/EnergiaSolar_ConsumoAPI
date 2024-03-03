@@ -24,6 +24,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
@@ -31,12 +32,13 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.enriquepalmadev.energiasolar_consumoapi.R
 import com.enriquepalmadev.energiasolar_consumoapi.compose.component.BottomMenu
-import com.enriquepalmadev.energiasolar_consumoapi.compose.component.TopBar
+import com.enriquepalmadev.energiasolar_consumoapi.compose.component.CenterTopBar
 import com.enriquepalmadev.energiasolar_consumoapi.data.model.Project
 import com.enriquepalmadev.energiasolar_consumoapi.ui.theme.ButtonColor
 import com.enriquepalmadev.energiasolar_consumoapi.viewmodel.ProjectViewModel
@@ -58,16 +60,17 @@ fun ProjectsUserScreen(
 
     Scaffold(
         topBar = {
-            TopBar(
-                title = stringResource(R.string.bussines_name),
-                onIconStartClicked = { /*TODO*/ }) {
-            }
+//            CenterTopBar(title = stringResource(id = R.string.bussines_name))
+            CenterTopBar(
+                title = stringResource(id = R.string.bussines_name),
+                solutions = stringResource(id = R.string.solutions)
+            )
         },
         content = {
             Column(
                 modifier = Modifier.padding(top = 32.dp, bottom = 48.dp)
             ) {
-                Spacer(modifier = Modifier.height(16.dp))
+                Spacer(modifier = Modifier.height(18.dp))
                 MyProjectsList(projects, navController)
             }
 
@@ -82,7 +85,7 @@ fun ProjectsUserScreen(
 @Composable
 fun MyProjectsList(projects: List<Project>, navController: NavController) {
     LazyColumn(
-        contentPadding = PaddingValues(8.dp),
+        contentPadding = PaddingValues(32.dp),
         verticalArrangement = Arrangement.spacedBy(8.dp)
     ) {
         items(projects) { project ->
@@ -117,12 +120,11 @@ fun ProjectItem(
                 contentScale = ContentScale.Crop,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(200.dp),
+                    .height(150.dp)
+                    .clip(RoundedCornerShape(8.dp)),
                 contentDescription = stringResource(R.string.project_image_description),
                 placeholder = painterResource(R.drawable.ic_launcher_background)
             )
-
-
 
             Spacer(modifier = Modifier.height(16.dp))
 
@@ -136,14 +138,16 @@ fun ProjectItem(
 
             Text(
                 text = project.address,
-                style = MaterialTheme.typography.headlineSmall
+                style = MaterialTheme.typography.headlineSmall,
+                fontSize = 14.sp
             )
 
             Spacer(modifier = Modifier.height(8.dp))
 
             Text(
-                text = project.generationCapacity.toString() + " W",
-                style = MaterialTheme.typography.headlineSmall
+                text = "Potencia total: " + project.generationCapacity.toString() + " W",
+                style = MaterialTheme.typography.headlineSmall,
+                fontSize = 18.sp
             )
 
             Spacer(modifier = Modifier.weight(1f))

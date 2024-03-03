@@ -167,7 +167,7 @@ fun Registration(
                 errorIndicatorColor = Color.Red,
                 errorTextColor = Color.Red,
 
-            )
+                )
         )
         TextField(
             modifier = Modifier

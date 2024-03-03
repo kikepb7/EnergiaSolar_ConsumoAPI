@@ -11,8 +11,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Scaffold
@@ -22,11 +20,13 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.enriquepalmadev.energiasolar_consumoapi.R
 import com.enriquepalmadev.energiasolar_consumoapi.compose.component.AddReportButton
 import com.enriquepalmadev.energiasolar_consumoapi.compose.component.BottomMenu
-import com.enriquepalmadev.energiasolar_consumoapi.compose.component.TopBar
+import com.enriquepalmadev.energiasolar_consumoapi.compose.component.CenterTopBar
 import com.enriquepalmadev.energiasolar_consumoapi.data.model.Report
 import com.enriquepalmadev.energiasolar_consumoapi.viewmodel.ReportViewModel
 import com.enriquepalmadev.energiasolar_consumoapi.viewmodel.UserViewModel
@@ -47,17 +47,17 @@ fun ReportsUserScreen(
 
     Scaffold(
         topBar = {
-            TopBar(
-                title = "Reportes",
-                iconStart = Icons.AutoMirrored.Filled.ArrowBack,
-                onIconStartClicked = { /*TODO*/ }) {
-            }
+//            CenterTopBar(title = stringResource(id = R.string.bussines_name))
+            CenterTopBar(
+                title = stringResource(id = R.string.bussines_name),
+                solutions = stringResource(id = R.string.solutions)
+            )
         },
         content = {
             Column(
                 modifier = Modifier.padding(top = 32.dp, bottom = 48.dp)
             ) {
-                Spacer(modifier = Modifier.height(16.dp))
+                Spacer(modifier = Modifier.height(32.dp))
                 MyReportsList(navController, reports, userId)
             }
         },

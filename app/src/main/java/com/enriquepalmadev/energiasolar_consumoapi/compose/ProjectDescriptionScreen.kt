@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -14,6 +15,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
@@ -27,7 +29,7 @@ import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.enriquepalmadev.energiasolar_consumoapi.R
 import com.enriquepalmadev.energiasolar_consumoapi.compose.component.BottomMenu
-import com.enriquepalmadev.energiasolar_consumoapi.compose.component.TopBar
+import com.enriquepalmadev.energiasolar_consumoapi.compose.component.CenterTopBar
 import com.enriquepalmadev.energiasolar_consumoapi.data.model.Project
 import com.enriquepalmadev.energiasolar_consumoapi.viewmodel.ProjectViewModel
 import com.enriquepalmadev.energiasolar_consumoapi.viewmodel.UserViewModel
@@ -49,16 +51,16 @@ fun ProjectDescriptionScreen(
 
     Scaffold(
         topBar = {
-            TopBar(
-                title = stringResource(R.string.bussines_name),
-                onIconStartClicked = { /* TODO */ }
-            ) {}
+            CenterTopBar(
+                title = stringResource(id = R.string.bussines_name),
+                solutions = stringResource(id = R.string.solutions)
+            )
         },
         content = {
             Column(
                 modifier = Modifier.padding(top = 32.dp, bottom = 48.dp)
             ) {
-                Spacer(modifier = Modifier.height(16.dp))
+                Spacer(modifier = Modifier.height(50.dp))
                 MyProject(project)
             }
         },
@@ -87,6 +89,7 @@ fun MyProject(project: Project?) {
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(200.dp)
+                    .clip(RoundedCornerShape(8.dp))
             )
 
             Spacer(modifier = Modifier.height(16.dp))

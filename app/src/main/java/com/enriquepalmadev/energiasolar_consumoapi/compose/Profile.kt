@@ -2,7 +2,6 @@ package com.enriquepalmadev.energiasolar_consumoapi.compose
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -16,7 +15,6 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Icon
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.automirrored.filled.KeyboardArrowRight
 import androidx.compose.material.icons.filled.Star
 import androidx.compose.material.icons.outlined.AccountBox
@@ -32,7 +30,6 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.modifier.modifierLocalConsumer
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -41,11 +38,10 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import coil.compose.AsyncImage
-import coil.compose.rememberAsyncImagePainter
 import coil.request.ImageRequest
 import com.enriquepalmadev.energiasolar_consumoapi.R
 import com.enriquepalmadev.energiasolar_consumoapi.compose.component.ButtonApp
-import com.enriquepalmadev.energiasolar_consumoapi.compose.component.TopBar
+import com.enriquepalmadev.energiasolar_consumoapi.compose.component.CenterTopBar
 import com.enriquepalmadev.energiasolar_consumoapi.viewmodel.UserViewModel
 import java.util.Calendar
 
@@ -66,11 +62,10 @@ fun Profile(
             .fillMaxSize()
             .padding(bottom = 128.dp)
     ) {
-        TopBar(
-            title = "Ajustes",
-            iconStart = Icons.AutoMirrored.Filled.ArrowBack,
-            onIconStartClicked = { /*TODO*/ }) {
-        }
+        CenterTopBar(
+            title = stringResource(id = R.string.bussines_name),
+            solutions = stringResource(id = R.string.solutions)
+        )
 
         user?.let {
             UserCard(
@@ -99,7 +94,8 @@ fun Profile(
 
         Column {
             ButtonApp(
-                text = "Log out") {
+                text = "Log out"
+            ) {
             }
 
             Row(

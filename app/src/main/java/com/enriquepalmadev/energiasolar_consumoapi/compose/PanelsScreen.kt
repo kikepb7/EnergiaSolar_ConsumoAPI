@@ -44,7 +44,7 @@ import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.enriquepalmadev.energiasolar_consumoapi.R
 import com.enriquepalmadev.energiasolar_consumoapi.compose.component.BottomMenu
-import com.enriquepalmadev.energiasolar_consumoapi.compose.component.TopBar
+import com.enriquepalmadev.energiasolar_consumoapi.compose.component.CenterTopBar
 import com.enriquepalmadev.energiasolar_consumoapi.data.model.Panel
 import com.enriquepalmadev.energiasolar_consumoapi.ui.theme.DarkGreyCard
 import com.enriquepalmadev.energiasolar_consumoapi.ui.theme.DarkScreen
@@ -67,17 +67,18 @@ fun PanelsScreen(
 
     Scaffold(
         topBar = {
-            TopBar(
-                title = stringResource(R.string.bussines_name),
-                onIconStartClicked = { /*TODO*/ }) {
-            }
+            CenterTopBar(
+                title = stringResource(id = R.string.bussines_name),
+                solutions = stringResource(id = R.string.solutions)
+            )
         },
         content = {
             Column(
                 modifier = Modifier.padding(top = 32.dp, bottom = 48.dp)
             ) {
+                Spacer(modifier = Modifier.height(32.dp))
                 MyCarousel()
-                Spacer(modifier = Modifier.height(16.dp))
+                Spacer(modifier = Modifier.height(8.dp))
                 MyItemList(panels)
 
             }
