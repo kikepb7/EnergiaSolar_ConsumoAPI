@@ -22,6 +22,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.enriquepalmadev.energiasolar_consumoapi.data.RetrofitServiceFactory
@@ -53,7 +54,7 @@ fun BottomMenu(navController: NavController, userViewModel: UserViewModel) {
                       }
             },
             icon = { Icon(Icons.Default.Home, contentDescription = "Paneles") },
-            label = { Text("Paneles") }
+            label = { Text("Paneles", fontSize = 12.sp) }
         )
         BottomNavigationItem(
             selected = false,
@@ -66,7 +67,7 @@ fun BottomMenu(navController: NavController, userViewModel: UserViewModel) {
                       }
             },
             icon = { Icon(Icons.Default.Info, contentDescription = "Proyectos") },
-            label = { Text("Proyectos") }
+            label = { Text("Proyectos", fontSize = 12.sp) }
         )
         BottomNavigationItem(
             selected = false,
@@ -79,7 +80,7 @@ fun BottomMenu(navController: NavController, userViewModel: UserViewModel) {
                       }
             },
             icon = { Icon(Icons.Default.Build, contentDescription = "Reportes") },
-            label = { Text("Reportes") }
+            label = { Text("Reportes", fontSize = 12.sp) }
         )
         BottomNavigationItem(
             selected = false,
@@ -92,7 +93,7 @@ fun BottomMenu(navController: NavController, userViewModel: UserViewModel) {
                       }
             },
             icon = { Icon(Icons.Default.Person, contentDescription = "Perfil") },
-            label = { Text("Perfil") }
+            label = { Text("Perfil", fontSize = 12.sp) }
         )
     }
 }
