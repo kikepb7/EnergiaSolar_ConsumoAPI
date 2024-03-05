@@ -11,6 +11,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 
 @Composable
 fun ButtonApp(
@@ -19,6 +20,25 @@ fun ButtonApp(
 ) {
     Button(
         onClick = onLogoutClicked,
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(horizontal = 16.dp, vertical = 16.dp),
+        colors = ButtonDefaults.buttonColors(Color.LightGray),
+    ) {
+        Text(
+            text = text,
+            color = Color.Black
+        )
+    }
+}
+
+@Composable
+fun LogoutButton(
+    text: String,
+    navController: NavController
+) {
+    Button(
+        onClick = { navController.navigate("home") },
         modifier = Modifier
             .fillMaxWidth()
             .padding(horizontal = 16.dp, vertical = 16.dp),

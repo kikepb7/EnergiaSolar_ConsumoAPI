@@ -42,6 +42,7 @@ import coil.request.ImageRequest
 import com.enriquepalmadev.energiasolar_consumoapi.R
 import com.enriquepalmadev.energiasolar_consumoapi.compose.component.ButtonApp
 import com.enriquepalmadev.energiasolar_consumoapi.compose.component.CenterTopBar
+import com.enriquepalmadev.energiasolar_consumoapi.compose.component.LogoutButton
 import com.enriquepalmadev.energiasolar_consumoapi.viewmodel.UserViewModel
 import java.util.Calendar
 
@@ -93,10 +94,10 @@ fun Profile(
         Spacer(modifier = Modifier.weight(1f))
 
         Column {
-            ButtonApp(
-                text = "Log out"
-            ) {
-            }
+            LogoutButton(
+                text = "Log out",
+                navController = navController
+            )
 
             Row(
                 modifier = Modifier

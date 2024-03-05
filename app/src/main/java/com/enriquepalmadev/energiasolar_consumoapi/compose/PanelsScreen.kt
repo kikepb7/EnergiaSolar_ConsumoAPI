@@ -32,6 +32,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
@@ -92,23 +93,31 @@ fun PanelsScreen(
 
 @Composable
 fun MyCarousel() {
+    // Imagenes de las marcas
+    val brandsImage = listOf(
+        R.drawable.suntech_logo,
+        R.drawable.solarworld_logo,
+        R.drawable.lg_logo,
+        R.drawable.risen_logo
+    )
+
     LazyRow {
-        items(5) { index ->
+        items(brandsImage.size) { index ->
             if (index == 0) {
                 Spacer(
                     modifier = Modifier
                         .width(16.dp)
                 )
-                PanelCard()
+                PanelCard(painterResource(id = brandsImage[index]))
             } else {
-                PanelCard()
+                PanelCard(painterResource(id = brandsImage[index]))
             }
         }
     }
 }
 
 @Composable
-fun PanelCard() {
+fun PanelCard(painter: Painter) {
     Card(
         modifier = Modifier
             .padding(16.dp)
@@ -117,7 +126,7 @@ fun PanelCard() {
         elevation = CardDefaults.cardElevation(defaultElevation = 8.dp)
     ) {
         Image(
-            painter = painterResource(id = R.drawable.logo),
+            painter = painter,
             contentDescription = "Imagen del panel",
             contentScale = ContentScale.FillWidth,
             modifier = Modifier
