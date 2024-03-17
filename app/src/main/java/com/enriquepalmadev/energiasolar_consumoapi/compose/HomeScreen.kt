@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
@@ -94,14 +95,13 @@ fun HomeScreen(
             Icon(
                 painter = iconPainter,
                 modifier = Modifier
-                    .width(256.dp)
+                    .width(200.dp)
                     .padding(top = 32.dp, end = 8.dp)
                     .align(Alignment.CenterHorizontally),
                 contentDescription = "Logo principal",
                 tint = Color.Black
             )
             Registration(navController = navController, userViewModel = userViewModel)
-            Spacer(modifier = Modifier.padding(8.dp))
             HomeScreenFooter(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -146,7 +146,7 @@ fun Registration(
 
     Column(
         modifier = Modifier
-            .padding(start = 16.dp, end = 16.dp, top = 32.dp)
+            .padding(start = 16.dp, end = 16.dp, top = 16.dp)
     ) {
         TextField(
             modifier = Modifier
@@ -251,6 +251,7 @@ fun HomeScreenFooter(
 ) {
     Column(
         modifier = Modifier
+            .fillMaxWidth()
             .padding(start = 16.dp, end = 16.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {

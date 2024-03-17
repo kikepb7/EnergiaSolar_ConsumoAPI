@@ -258,7 +258,7 @@ fun PanelItem(panel: Panel) {
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     Icon(
-                        imageVector = Icons.Default.Create,
+                        painter = painterResource(id = R.drawable.price),
                         contentDescription = "Modelo",
                         tint = Color.White
                     )
